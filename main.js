@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //const url="https://concise-rampart-413810.lm.r.appspot.com"
     //const url="http://localhost:5000"
 
-    const url="http://34.88.216.120:6001"
+    const url="https://emeric-backend-z573vwoula-lz.a.run.app"
 
     function handleButtonClick(originalButton){
         if(!inAction){
