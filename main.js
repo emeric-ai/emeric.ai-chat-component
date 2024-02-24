@@ -8,11 +8,11 @@ import createOneChat from './componentFunctions/createOneChat.js'
 import createChatInputArea from './constComponents/createChatInputArea.js'
 import createButtonsComponent from './componentFunctions/createButtonsComponent.js'
 
-let allDragNotes=[]  
-//import allDragNotes from './dragNotes.js'
+//let allDragNotes=[]  
+import allDragNotes from './dragNotes.js'
 
-let dragNotes=[]  
-//let dragNotes = allDragNotes["finnish"]
+//let dragNotes=[]  
+let dragNotes = allDragNotes["finnish"]
 
 
 
@@ -113,8 +113,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let first=dragNotes.find(n=>n.title.connection === "0")
 
     //const url="https://concise-rampart-413810.lm.r.appspot.com"
-    const url="http://localhost:5000"
-
+    //const url="http://localhost:5000"
+    
+    const url="http://34.88.216.120:6001/"
 
     function handleButtonClick(originalButton){
         if(!inAction){
@@ -352,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(container)
 
 
-    const blankElement=document.createElement("input")
+/*     const blankElement=document.createElement("input")
     blankElement.style.display="none"
     blankElement.id="viralTopInput"
     document.head.appendChild(blankElement)
@@ -392,5 +393,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
         refreshChat()
     }  
-
+ */
 })
