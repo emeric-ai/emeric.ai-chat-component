@@ -46,6 +46,9 @@ function createChatInputArea(handleSendMessage){
     textarea.style.fontFamily="Arial"
     textarea.style.height="40px"
     textarea.style.marginLeft="5px"
+    textarea.placeholder = "Kirjoita chattisi tähän"
+    textarea.style.padding="4px"
+
 
     const sendButton = document.createElement('button');
     sendButton.style.width = "15%";

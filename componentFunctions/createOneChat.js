@@ -2,7 +2,6 @@ import circleImage from "../componentTemplates/circleImage.js"
 import dots from "../componentTemplates/dots.js"
 
 let chatTemplate = document.createElement('div');
-chatTemplate.style.display = "flex"
 chatTemplate.style.backgroundColor="#f2f2f2"
 chatTemplate.style.color = "black"
 chatTemplate.style.borderRadius= "8px"
@@ -16,6 +15,15 @@ chatInnerContainerTemplate.style.display="flex"
 chatInnerContainerTemplate.style.flexDirection="row"
 chatInnerContainerTemplate.style.margin = "20px 15px 0px 5px"
 
+function convertTextToHyperlinks(text) {
+    const urlRegex = /(\bhttps?:\/\/[^\s]+|\bwww\.[^\s]+)/g;
+
+    return text.replace(urlRegex, function(url) {
+        const properUrl = url.startsWith('http') ? url : 'http://' + url;
+        return '<a href="' + properUrl + '" target="_blank">' + url + '</a>';
+    });
+}
+
 
 function createOneChat(inputChat,chats){
     let chatInnerContainer = chatInnerContainerTemplate.cloneNode(true)
@@ -28,7 +36,7 @@ function createOneChat(inputChat,chats){
     else{
         inputChat.role ==="assistant2" ? chats.push({"role":"assistant","content":inputChat.content}) : chats.push(inputChat)
         let chat = chatTemplate.cloneNode(true)
-        chat.innerText=inputChat.content
+        chat.innerHTML=convertTextToHyperlinks(inputChat.content)
 
         if(inputChat.role === "user"){
             chatInnerContainer.style.maxWidth="80%"
