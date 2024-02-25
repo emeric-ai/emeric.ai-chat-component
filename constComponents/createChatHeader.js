@@ -15,20 +15,20 @@ function createChatHeader(chatDiv,chatButton,newChat){
     chatHeader.style.justifyContent = "start";
     chatHeader.style.height = "5%";
     chatHeader.style.borderRadius = "10px 10px 0px 0px";
-    chatHeader.style.backgroundColor =window.ChatComponentMainColor
+    chatHeader.style.backgroundColor = "#041F3E"
     chatHeader.style.color = "white";
     chatHeader.style.padding = "10px";
     chatHeader.style.alignSelf = "flex-start";
 
     const imageComponent = document.createElement("img")
-    imageComponent.src="https://viraltop.org/wp-content/uploads/2023/10/E26809D4-9284-46EC-B77B-ED4E2BDEC9F8_1_201_a.jpeg"
+    imageComponent.src="https://storage.googleapis.com/emeric-logo/last.png"
     imageComponent.alt="logo"
     imageComponent.title="logo"
-    imageComponent.style.width = "40px"
+    imageComponent.style.width = "60px"
     imageComponent.style.cursor="pointer"
 
     imageComponent.addEventListener('click', function() {
-        const newPageUrl = 'https://viraltop.org/';
+        const newPageUrl = 'https://emeric.ai/';
         window.open(newPageUrl, '_blank');
     })
 

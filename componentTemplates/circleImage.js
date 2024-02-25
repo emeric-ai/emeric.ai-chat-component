@@ -1,14 +1,30 @@
 
-const circleImage=document.createElement('div');
 
-const imageComponent = document.createElement("img")
-imageComponent.src="https://viraltop.org/wp-content/uploads/2023/10/E26809D4-9284-46EC-B77B-ED4E2BDEC9F8_1_201_a.jpeg"
-imageComponent.alt="logo"
-imageComponent.title="logo"
-imageComponent.style.border = "2px solid black";
-imageComponent.style.borderRadius = "50%";
-imageComponent.style.marginRight="5px"
-imageComponent.style.maxWidth="40px"
-circleImage.appendChild(imageComponent)
+const circleImage = document.createElement('div');
+circleImage.style.width="40px"
+circleImage.style.height="40px"
+circleImage.style.border = `2px solid #041F3E`
+circleImage.style.borderRadius="50%"
+circleImage.style.display="flex"
+circleImage.style.justifyContent="center"
+circleImage.style.alignItems="center"
+circleImage.style.minWidth = "40px"; 
+circleImage.style.maxWidth = "40px"; 
+circleImage.style.minHeight = "40px"; 
+circleImage.style.maxHeight = "40px"; 
 
-export default circleImage
+
+
+const imageComponent = document.createElement("img");
+imageComponent.src = "https://storage.googleapis.com/emeric-logo/download.svg";
+imageComponent.alt = "logo";
+imageComponent.title = "logo";
+imageComponent.style.width = "30px"; 
+imageComponent.style.height = "30px";
+
+circleImage.appendChild(imageComponent);
+
+circleImage.style.marginRight="5px"
+
+
+export default circleImage; 

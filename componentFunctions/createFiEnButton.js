@@ -20,15 +20,15 @@ function createFiEnButton(handleLanguageChange){
     fi.style.borderRadius="12px"
     fi.style.cursor="pointer"
     fi.style.backgroundColor="white"
-    fi.style.color=window.ChatComponentMainColor
+    fi.style.color="#041F3E"
 
     fi.addEventListener("click",function(){
         let res = handleLanguageChange("finnish")
         if(res){
-            fi.style.color=window.ChatComponentMainColor
+            fi.style.color="#041F3E"
             fi.style.backgroundColor="white"
             en.style.color="white" 
-            en.style.backgroundColor=window.ChatComponentMainColor
+            en.style.backgroundColor="#041F3E"
         }
 
     })
@@ -43,10 +43,10 @@ function createFiEnButton(handleLanguageChange){
     en.addEventListener("click",function(){
         let res = handleLanguageChange("english")
         if (res){
-            en.style.color=window.ChatComponentMainColor
+            en.style.color="#041F3E"
             en.style.backgroundColor="white"
             fi.style.color="white" 
-            fi.style.backgroundColor=window.ChatComponentMainColor
+            fi.style.backgroundColor="#041F3E"
         }
     })    
     parent.appendChild(fi)

@@ -13,7 +13,7 @@ chatTemplate.style.fontWeight="500"
 let chatInnerContainerTemplate = document.createElement('div');
 chatInnerContainerTemplate.style.display="flex"
 chatInnerContainerTemplate.style.flexDirection="row"
-chatInnerContainerTemplate.style.margin = "20px 15px 0px 5px"
+chatInnerContainerTemplate.style.marginTop = "20px"
 
 function convertTextToHyperlinks(text) {
     const urlRegex = /(\bhttps?:\/\/[^\s]+|\bwww\.[^\s]+)/g;
@@ -30,6 +30,7 @@ function createOneChat(inputChat,chats){
     if(inputChat==="dots"){
         chatInnerContainer.style.maxWidth="90%"
         chatInnerContainer.style.alignSelf = "flex-start"
+        chatInnerContainer.style.marginLeft="5px"
         chatInnerContainer.appendChild(circleImage.cloneNode(true))
         chatInnerContainer.appendChild(dots)
     }
@@ -41,15 +42,18 @@ function createOneChat(inputChat,chats){
         if(inputChat.role === "user"){
             chatInnerContainer.style.maxWidth="80%"
             chatInnerContainer.style.alignSelf = "flex-end"
+            chatInnerContainer.style.marginRight="5px"
         }
         else if(inputChat.role === "assistant2"){
             chatInnerContainer.style.maxWidth="70%"
             chatInnerContainer.style.alignSelf = "flex-start"
             chatInnerContainer.style.marginLeft = "15.5%"
+            chatInnerContainer.style.marginRight="5px"
         }
         else{
-            chatInnerContainer.style.maxWidth="90%"
+            chatInnerContainer.style.maxWidth="80%"
             chatInnerContainer.style.alignSelf = "flex-start"
+            chatInnerContainer.style.marginLeft="5px"
             chatInnerContainer.appendChild(circleImage.cloneNode(true))
         }
         chatInnerContainer.appendChild(chat)

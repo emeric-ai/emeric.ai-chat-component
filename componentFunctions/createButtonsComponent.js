@@ -17,7 +17,7 @@ function createButtonsComponent(buttons,handleButtonClick) {
         button.style.marginRight = '10px'
         button.style.backgroundColor = 'white'
         button.style.color = window.ChatComponentMainColor
-        button.style.border = `1.5px solid ${window.ChatComponentMainColor}`
+        button.style.border = `1.5px solid "#041F3E"`
         button.style.borderRadius = '15px'
         button.style.padding = '5px 10px'
         button.style.cursor = 'pointer'
@@ -28,13 +28,13 @@ function createButtonsComponent(buttons,handleButtonClick) {
         button.innerText = originalButton.text
 
         button.addEventListener('mouseenter', function () {
-            button.style.backgroundColor = window.ChatComponentMainColor
+            button.style.backgroundColor = "#041F3E"
             button.style.color = 'white';
         });
         
         button.addEventListener('mouseleave', function () {
             button.style.backgroundColor = 'white';
-            button.style.color = window.ChatComponentMainColor
+            button.style.backgroundColor = "#041F3E"
         });
 
         button.addEventListener('click', function () {
