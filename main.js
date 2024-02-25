@@ -14,7 +14,10 @@ import allDragNotes from './dragNotes.js'
 //let dragNotes=[]  
 let dragNotes = allDragNotes["finnish"]
 
+//const url="https://concise-rampart-413810.lm.r.appspot.com"
+//const url="http://localhost:5000"
 
+const url="https://emeric-backend-z573vwoula-lz.a.run.app"
 
 let originalChat
 let inAction=false
@@ -120,10 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let first=dragNotes.find(n=>n.title.connection === "0")
 
-    //const url="https://concise-rampart-413810.lm.r.appspot.com"
-    //const url="http://localhost:5000"
 
-    const url="https://emeric-backend-z573vwoula-lz.a.run.app"
 
     function handleButtonClick(originalButton){
         if(!inAction){
@@ -359,8 +359,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.body.appendChild(container)
 
-
-/*     const blankElement=document.createElement("input")
+/* 
+     const blankElement=document.createElement("input")
     blankElement.style.display="none"
     blankElement.id="viralTopInput"
     document.head.appendChild(blankElement)
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         curLang="finnish"
         dragNotes=allDragNotes[curLang]
-        console.log(1,dragNotes)
+
         if(dragNotes){
             first=dragNotes.find(n=>n.title.connection === "0")
         }
@@ -400,5 +400,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
         refreshChat()
     }  
- */
+  */
 })
