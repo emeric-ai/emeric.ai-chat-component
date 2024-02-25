@@ -28,7 +28,7 @@ function createChatIcon() {
 }
 
 
-function createChatButtonAndChatDiv(positionList){
+function createChatButtonAndChatDiv(positionList,border){
     const chatButton = document.createElement('div');
     chatButton.style.width = "55px";
     chatButton.style.height = "55px";
@@ -43,6 +43,8 @@ function createChatButtonAndChatDiv(positionList){
     chatButton.style.fontSize = "26px";
     chatButton.style[positionList[0]] = "10px";
     chatButton.style[positionList[1]] = "10px";
+    
+    chatButton.style.border=border
 
     var chatIconSvg = createChatIcon()
     chatButton.appendChild(chatIconSvg);

@@ -25,6 +25,7 @@ let buttonsContainer
 let curLang="finnish"
 let leadContainer
 let container
+let border
 
 function isValidColor(strColor) {
     var s = new Option().style;
@@ -75,6 +76,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     catch(e){
         banned=[];
+    }
+
+    try{
+        border=scriptTag.getAttribute("border")
+    }
+    catch{
+        border="none"
     }
 
     const chatsContainerComponent = document.createElement('div');
@@ -142,9 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     if(next.title.title.startsWith("!")){
                         let newRes=createOneChat({"role":"assistant","content":next.title.title.slice(1)},chats)
                         chatsContainerComponent.appendChild(newRes)
-                        leadContainer=createLeadContainer(next.texts,chatsContainerComponent,chats,url)
+                        leadContainer=createLeadContainer(next.texts,chatsContainerComponent,chats,url,param1)
                         chatsContainerComponent.appendChild(leadContainer)
-
                     }
                     else{
                         let newRes=createOneChat({"role":"assistant","content":next.title.title},chats)
@@ -323,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chatsContainerComponent.appendChild(buttonsContainer)
     }
 
-    const [chatDiv,chatButton] = createChatButtonAndChatDiv(positionList)
+    const [chatDiv,chatButton] = createChatButtonAndChatDiv(positionList,border)
 
     const chatInputArea=createChatInputArea(handleSendMessage)
 
