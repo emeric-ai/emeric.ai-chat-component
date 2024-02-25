@@ -17,7 +17,10 @@ let dragNotes = allDragNotes["finnish"]
 //const url="https://concise-rampart-413810.lm.r.appspot.com"
 //const url="http://localhost:5000"
 
-const url="https://emeric-backend-z573vwoula-lz.a.run.app"
+//const url="https://emeric-backend-z573vwoula-lz.a.run.app"
+
+
+const url= "https://emeric-backend-finaali-z573vwoula-lz.a.run.app"
 
 let originalChat
 let inAction=false
