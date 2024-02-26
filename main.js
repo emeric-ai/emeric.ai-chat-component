@@ -324,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    chats.push(originalChat)
 
     originalChatComponent = createOneChat(originalChat,chats)
     chatsContainerComponent.appendChild(originalChatComponent)
