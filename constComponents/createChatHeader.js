@@ -6,7 +6,7 @@ function toggleButtons(hideButton, showButton) {
     showButton.style.display = 'flex';
 }
 
-function createChatHeader(chatDiv,chatButton,newChat){
+function createChatHeader(chatDiv,chatButton,newChat,headerColor){
     const chatHeader = document.createElement('div');
     chatHeader.id="chatHeader"
     chatHeader.style.width = "94.6%";
@@ -15,13 +15,13 @@ function createChatHeader(chatDiv,chatButton,newChat){
     chatHeader.style.justifyContent = "start";
     chatHeader.style.height = "5%";
     chatHeader.style.borderRadius = "10px 10px 0px 0px";
-    chatHeader.style.backgroundColor = "#041F3E"
+    chatHeader.style.backgroundColor = headerColor ? headerColor : window.ChatComponentMainColor
     chatHeader.style.color = "white";
     chatHeader.style.padding = "10px";
     chatHeader.style.alignSelf = "flex-start";
 
     const imageComponent = document.createElement("img")
-    imageComponent.src="https://storage.googleapis.com/emeric-logo/last.png"
+    imageComponent.src="https://storage.googleapis.com/emeric-logo/eai.png"
     imageComponent.alt="logo"
     imageComponent.title="logo"
     imageComponent.style.width = "60px"
@@ -32,7 +32,7 @@ function createChatHeader(chatDiv,chatButton,newChat){
         window.open(newPageUrl, '_blank');
     })
 
-    const newChatContainer = createNewChatContainer()
+    const newChatContainer = createNewChatContainer(headerColor)
 
     newChatContainer.addEventListener('click', function() {
         newChat()

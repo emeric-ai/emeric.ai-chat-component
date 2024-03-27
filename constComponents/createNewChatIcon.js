@@ -1,4 +1,4 @@
-function createNewChatContainer(){
+function createNewChatContainer(color){
     const newChatContainer = document.createElement('div');
     newChatContainer.style.width = "25px";
     newChatContainer.style.height = "25px";
@@ -19,14 +19,14 @@ function createNewChatContainer(){
     const innerCircle = document.createElement('div');
     innerCircle.style.width = "22px";
     innerCircle.style.height = "22px";
-    innerCircle.style.backgroundColor=window.ChatComponentMainColor
+    innerCircle.style.backgroundColor=color?color:window.ChatComponentMainColor
     innerCircle.style.borderRadius="50%"
 
 
     const innerSquare = document.createElement('div');
     innerSquare.style.width = "25px";
     innerSquare.style.height = "25px";
-    innerSquare.style.backgroundColor=window.ChatComponentMainColor
+    innerSquare.style.backgroundColor=color?color:window.ChatComponentMainColor
     innerSquare.style.position = "absolute";
     innerSquare.style.right = "11px";
     innerSquare.style.top = "11px";

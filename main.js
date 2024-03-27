@@ -18,9 +18,9 @@ let dragNotes = allDragNotes["finnish"]
 //const url="http://localhost:5000"
 
 //const url="https://emeric-backend-z573vwoula-lz.a.run.app"
-
-
 const url= "https://emeric-backend-finaali-z573vwoula-lz.a.run.app"
+
+
 
 let originalChat
 let inAction=false
@@ -32,6 +32,7 @@ let curLang="finnish"
 let leadContainer
 let container
 let border
+let first
 
 function isValidColor(strColor) {
     var s = new Option().style;
@@ -45,10 +46,21 @@ function toggleButtons(hideButton, showButton) {
     showButton.style.display = 'flex';
 }
 
-let scriptTag = document.getElementById('viraltop-script');
+function handleAppend(component,parent){
+    if(component.length === undefined){
+        for(let comp of component){
+            parent.appendChild(comp)
+        }
+    }
+    else{
+        parent.appendChild(component)
+    }
+}
+
+let scriptTag = document.getElementById('emeric-script');
 let allowed
 let banned
-
+let headerColor
 
 (function(history){
     var pushState = history.pushState;
@@ -69,6 +81,10 @@ let banned
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    const headerTag=scriptTag.getAttribute('header-color')
+    if(headerTag !== null && isValidColor(headerTag)){
+        headerColor=headerTag
+    }
 
     try{
         allowed=scriptTag.getAttribute('allowed-paths').split(",")
@@ -89,6 +105,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     catch{
         border="none"
+    }
+
+    try{
+        if(scriptTag.getAttribute('pictureURL')){
+            window.chatBotPictureURL=scriptTag.getAttribute('pictureURL')
+        }
+        else{
+            window.chatBotPictureURL="https://storage.googleapis.com/emeric-logo/download.svg"
+        }
+    }
+    catch(e){
+        window.chatBotPictureURL="https://storage.googleapis.com/emeric-logo/download.svg"
     }
 
     const chatsContainerComponent = document.createElement('div');
@@ -124,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    let first=dragNotes.find(n=>n.title.connection === "0")
 
 
 
@@ -137,12 +164,12 @@ document.addEventListener('DOMContentLoaded', function() {
             catch(e){}
 
             let newChat=createOneChat({"role":"user","content":originalButton.text},chats)
+            handleAppend(newChat,chatsContainerComponent)
 
-            chatsContainerComponent.appendChild(newChat)
 
             let dotsContainer = createOneChat("dots",chats)
 
-            chatsContainerComponent.appendChild(dotsContainer)
+            handleAppend(dotsContainer,chatsContainerComponent)
             chatsContainerComponent.scrollTop = chatsContainerComponent.scrollHeight;
 
             setTimeout(function() {
@@ -152,14 +179,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if(next.title.title.startsWith("!")){
                         let newRes=createOneChat({"role":"assistant","content":next.title.title.slice(1)},chats)
-                        chatsContainerComponent.appendChild(newRes)
+                        handleAppend(newRes,chatsContainerComponent)
                         leadContainer=createLeadContainer(next.texts,chatsContainerComponent,chats,url,param1)
-                        chatsContainerComponent.appendChild(leadContainer)
+                        handleAppend(leadContainer,chatsContainerComponent)
                     }
                     else{
                         let newRes=createOneChat({"role":"assistant","content":next.title.title},chats)
-                        chatsContainerComponent.appendChild(newRes)
-                        
+                        handleAppend(newRes,chatsContainerComponent)
+
                         if(next.texts.length>0){
                             let reccomends=next.texts.filter(n=>n.text.startsWith("@"))
 
@@ -179,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 catch(e){
                     let newRes=createOneChat({"role":"assistant","content":"Error"},chats)
-                    chatsContainerComponent.appendChild(newRes)
+                    handleAppend(newRes,chatsContainerComponent)
                     chatsContainerComponent.scrollTop = chatsContainerComponent.scrollHeight;
                     inAction=false
                 }
@@ -192,6 +219,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if(!inAction && curLang !== lang){
             inAction=true
             id=null
+            if(chats.find(n=>n.role==="user")){
+                let localStorageChats=localStorage.getItem(`emeric-chats-${param1}`)
+                if(localStorageChats){
+                    let obj=JSON.parse(localStorageChats)
+                        obj.prevChats.push(chats)
+                        obj.chats=[]
+                        localStorage.setItem(`emeric-chats-${param1}`, JSON.stringify(obj))
+                }
+                else{
+                    localStorage.setItem(`emeric-chats-${param1}`,JSON.stringify({chats:[],prevChats:[chats],time:new Date()}))
+                }            
+            }
             chats=[]
             dragNotes=allDragNotes[lang]
             first=dragNotes.find(n=>n.title.connection === "0")
@@ -222,10 +261,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 chatsContainerComponent.removeChild(leadContainer)
             }catch(e){}
 
-            chatsContainerComponent.appendChild(newChat)
+            handleAppend(newChat,chatsContainerComponent)
 
             let dotsContainer = createOneChat("dots",chats)
-            chatsContainerComponent.appendChild(dotsContainer)
+            handleAppend(dotsContainer,chatsContainerComponent)
 
             chatsContainerComponent.scrollTop = chatsContainerComponent.scrollHeight;
             let postData = {
@@ -258,15 +297,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if(data.result !== ""){
                     let newRes = createOneChat({"role":"assistant","content":data.result},chats);
-                    chatsContainerComponent.appendChild(newRes);
+                    handleAppend(newRes,chatsContainerComponent)
+
                 }
 
                 if(data.nextButtons !== undefined){
                     const next=dragNotes.find(n=>n.endpoint === data.nextButtons)
-
                     if(next){
                         let newRes = createOneChat({"role": "assistant" ,"content":next.title.title},chats);
-                        chatsContainerComponent.appendChild(newRes);
+                        handleAppend(newRes,chatsContainerComponent)
                         if(next.texts.length>0){
                             buttonsContainer = createButtonsComponent(next.texts,handleButtonClick);
                             chatsContainerComponent.appendChild(buttonsContainer);
@@ -274,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     else{
                         let newRes = createOneChat({"role":"assistant","content":"Error"},chats);
-                        chatsContainerComponent.appendChild(newRes);
+                        handleAppend(newRes,chatsContainerComponent)
                     }
                 }
                 chatsContainerComponent.scrollTop = chatsContainerComponent.scrollHeight;
@@ -287,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 catch(e){}
                 let newRes = createOneChat({"role":"assistant","content":"Error"},chats);
-                chatsContainerComponent.appendChild(newRes);
+                handleAppend(newRes,chatsContainerComponent)
                 chatsContainerComponent.scrollTop = chatsContainerComponent.scrollHeight;
                 inAction=false
             }); 
@@ -297,12 +336,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function refreshChat(){
-        if(!inAction){
-            chats=[originalChat]
+        if(!inAction && chats.find(n=>n.role==="user") ){
+
+            let localStorageChats=localStorage.getItem(`emeric-chats-${param1}`)
+            if(localStorageChats){
+                let obj=JSON.parse(localStorageChats)
+                obj.prevChats.push(chats)
+                obj.chats=[]
+                localStorage.setItem(`emeric-chats-${param1}`, JSON.stringify(obj))
+            }
+            else{
+                localStorage.setItem(`emeric-chats-${param1}`,JSON.stringify({chats:[],prevChats:[chats],time:new Date()}))
+            }
+
+            chats=[]
+
             while (chatsContainerComponent.firstChild) {
                 chatsContainerComponent.removeChild(chatsContainerComponent.firstChild);
             }
-            chatsContainerComponent.appendChild(originalChatComponent)
+            let newOriginalChatComponent=createOneChat(originalChat,chats)
+            handleAppend(newOriginalChatComponent,chatsContainerComponent)
+
             id=null
             if(first && first.texts && first.texts.length>0){
                 const button = first.texts
@@ -312,21 +366,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    let localStorageChats=localStorage.getItem(`emeric-chats-${param1}`)
+    let useOld=true
+    if(localStorageChats){
+        let obj=JSON.parse(localStorageChats)
+        let time=120*60*1000
+        let date = new Date(Date.now() - time);
+        if(new Date(obj.time) > date){
+            useOld=false
+            if(obj.chats[1] && obj.chats[1].role==="assistant2"){
+                originalChat = {role:"assistant",content:obj.chats[0].content+"///"+obj.chats[1].content}
+            }
+            else{
+                originalChat = obj.chats[0]
+            }
 
-    if(first === undefined){
-        originalChat={"role":"assistant","content":"Hei, miten voin auttaa sinua?"}
-    }
-    else{
-        originalChat={"role":"assistant","content":first.title.title}
-        if(first.texts && first.texts.length>0){
-            const button = first.texts
-            buttonsContainer = createButtonsComponent(button,handleButtonClick);
+            let chatObjects=[]
+            for(let chat of obj.chats){
+                chatObjects.push(createOneChat(chat))
+            }
+            for(let chatObject of chatObjects){
+                handleAppend(chatObject,chatsContainerComponent)
+            }
+        }
+        else{
+            localStorage.removeItem(`emeric-chats-${param1}`)
         }
     }
-
-
-    originalChatComponent = createOneChat(originalChat,chats)
-    chatsContainerComponent.appendChild(originalChatComponent)
+    if(useOld){
+        first=dragNotes.find(n=>n.title.connection === "0")
+        if(first === undefined){
+            originalChat={"role":"assistant","content":"Hei, miten voin auttaa sinua?"}
+        }
+        else{
+            originalChat={"role":"assistant","content":first.title.title}
+            if(first.texts && first.texts.length>0){
+                const button = first.texts
+                buttonsContainer = createButtonsComponent(button,handleButtonClick);
+            }
+        }
+        originalChatComponent = createOneChat(originalChat,chats)
+        handleAppend(originalChatComponent,chatsContainerComponent)
+    }
 
     if(buttonsContainer){
         chatsContainerComponent.appendChild(buttonsContainer)
@@ -336,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const chatInputArea=createChatInputArea(handleSendMessage)
 
-    const chatHeader=createChatHeader(chatDiv,chatButton,refreshChat)
+    const chatHeader=createChatHeader(chatDiv,chatButton,refreshChat,headerColor)
 
     if(Object.keys(allDragNotes).length>1){
         let fiEnButton=createFiEnButton(handleLanguageChange)
@@ -361,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.body.appendChild(container)
 
-/* 
+/*  
      const blankElement=document.createElement("input")
     blankElement.style.display="none"
     blankElement.id="viralTopInput"
@@ -401,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
         originalChatComponent =createOneChat(originalChat,chats)
 
         refreshChat()
-    }  
-  */
+    }   */
+  
+
 })
